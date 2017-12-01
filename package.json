@@ -1,0 +1,16 @@
+{
+  "name": "test-md-parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@dumpster/remark-custom-element-to-hast": "^0.4.0",
+    "remark-parse": "^4.0.0",
+    "unified": "^6.1.6"
+  }
+}

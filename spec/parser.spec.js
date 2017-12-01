@@ -8,5 +8,12 @@ const parser = unified()
   .use(customElementCompiler, { whitelist: ['MyComponent'] })
 
 const hast = parser.processSync(md).contents
-
+const hastCustom = hast.children[0].children.find(({ tagName }) => tagName == 'mycomponent')
 console.log(JSON.stringify(hast, null, 2))
+
+
+describe('Test nested children for components', () => {
+  it('should have children', () => {
+    expect(hastCustom.children.length).toBeGreaterThan(0)
+  })
+})

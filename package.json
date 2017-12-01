@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js"
+    "test": "jasmine"
   },
   "author": "",
   "license": "ISC",
@@ -12,5 +12,8 @@
     "@dumpster/remark-custom-element-to-hast": "^0.4.0",
     "remark-parse": "^4.0.0",
     "unified": "^6.1.6"
+  },
+  "devDependencies": {
+    "jasmine": "^2.8.0"
   }
 }

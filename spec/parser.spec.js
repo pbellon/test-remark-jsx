@@ -5,12 +5,12 @@ const md = `This is a test <MyComponent>of how components' **children**</MyCompo
 
 const parser = unified()
   .use(parse)
-  .use(customElementCompiler, { whitelist: ['MyComponent'] })
+  .use(customElementCompiler, { componentWhitelist: ['MyComponent'] })
 
 const hast = parser.processSync(md).contents
-const hastCustom = hast.children[0].children.find(({ tagName }) => tagName == 'mycomponent')
-console.log(JSON.stringify(hast, null, 2))
+console.log('hast', JSON.stringify(hast, null, 2))
 
+const hastCustom = hast.children.find(({ tagName }) => tagName == 'MyComponent')
 
 describe('Test nested children for components', () => {
   it('should have children', () => {

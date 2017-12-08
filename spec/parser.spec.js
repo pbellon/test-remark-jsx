@@ -7,11 +7,9 @@ const parser = unified()
   .use(customElementCompiler, { componentWhitelist: ['MyComponent', 'Autoclose'] })
 
 describe('Components with nested markdown', () => {
-  const md = `
-  This is a test <MyComponent>of how components' **children**</MyComponent> are handled`
+  const md = `This is a test <MyComponent>of how components' **children**</MyComponent> are handled`
   const hast = parser.processSync(md).contents
-  const hastCustom = hast.children.find(({ tagName }) => tagName == 'MyComponent')
-  console.log('hast', JSON.stringify(hast, null, 2))
+  const hastCustom = hast.children[0].children.find(({ tagName }) => tagName == 'MyComponent')
   
   it('should have children', () => {
     expect(hastCustom.children.length).toBeGreaterThan(0)
@@ -29,13 +27,12 @@ describe('Autoclosing components', () => {
   <MyComponent>Let's try to nest <Autoclose value='ok'/> with **mixed content**</MyComponent> 
   `
   const root = parser.processSync(md).contents
-  const comp = root.children.find(({ tagName }) => tagName == 'MyComponent')
+  const p = root.children[0]
+  const comp = p.children.find(({ tagName }) => tagName == 'MyComponent')
   const autoclose = comp.children.find(({ tagName }) => tagName == 'Autoclose')
-  
-  console.log('root', JSON.stringify(root, null, 2))
 
   it('should have an Autoclose element', () => {
-    expect(root.children.find(({ tagName }) => tagName == 'Autoclose')).toBeDefined()
+    expect(p.children.find(({ tagName }) => tagName == 'Autoclose')).toBeDefined()
   })
 
   it('should work when nested in another component', () => {
